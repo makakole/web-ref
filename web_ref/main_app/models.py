@@ -93,3 +93,15 @@ class User(AbstractBaseUser, PermissionsMixin):
             return True
         else:
             return False
+
+
+
+
+class IdData(models.Model):
+
+    first_name = models.CharField(max_length = 100, blank = False, null = True)
+    second_name = models.CharField(max_length = 100, blank = False, null = True)
+    surname = models.CharField(max_length = 100, blank = True, null = True)
+    id_number = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add = True)

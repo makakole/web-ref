@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import UserRegisterForm, AddIdForm, GenerateReferenceForm, RequestPermissionsForm
-from .models import IdData
+from .models import IdData, References
 from django.contrib import messages
 from .validate_id import valid_id
 from .generate import generate_ref
@@ -97,6 +97,7 @@ def reference(request):
 
 			form_object.data = IdData.objects.get(user = request.user)
 			form_object.reference = ref
+			form_object.user = request.user
 			form_object.save()
 
 			p_form_object.reference = form_object
@@ -126,4 +127,16 @@ def history(request):
 	history = References.objects.filter(user = request.user)
 
 	messages.success(request, f'generated')
-	return render(request, 'main_app/history.html')
+	context = {
+	'history': history
+	}
+	return render(request, 'main_app/history.html', context)
+
+
+
+def check_reference(request):
+
+	context = {
+	'history': 'history'
+	}
+	return render(request, 'main_app/check-reference.html', context)

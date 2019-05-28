@@ -44,14 +44,14 @@ class AddIdForm(forms.ModelForm):
 
 class GenerateReferenceForm(forms.ModelForm):
 
-	expiry_date = forms.DateField(widget = forms.SelectDateWidget())
+	# expiry_date = forms.DateTimeField(required=False, help_text="Optional")
 
 	class Meta:
 		model = References
 		fields = ['generated_for', 'reason', 'expiry_date']
 
 		widgets = {
-            'expiry_date': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'tabindex': '1', 'required': "required"})
+            'expiry_date': forms.TextInput(attrs={'type': 'date', 'class': 'span8', 'id': 'basicinput'})
         }
 
 

@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import IdData
+from .models import IdData, References, RequestPermissions
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms.fields import DateField
 
 User = get_user_model()
 
@@ -28,20 +30,8 @@ class AddIdForm(forms.ModelForm):
 		model = IdData
 		fields = ('first_name', 'second_name', 'surname', 'id_number')
 
-	def __init__(self, *args, **kwargs):
-		# self.organizer = kwargs.pop('organizer')
-		super(AddIdForm, self).__init__(*args, **kwargs)
-		if self.instance:
-			self.fields['first_name'].initial = 'jnljnk'#self.organizer.default_location
-			# self.fields['required'].widget = CheckboxInput(required=False)
-	def clean_time(self):
-		surname = self.cleaned_data['surname'].upper()
-    #     # do stuff with the time to put it in UTC based on the user's default timezone and data passed into the form.
-
-    # def save(self, *args, **kwargs):
-    #     self.instance.organizer = self.organizer
-    #     meal = super(MealForm, self).save(*args, **kwargs)
-    #     return meal
+		def clean_title(self):
+			return self.cleaned_data['first_name'].capitalize()
 
 		widgets = {
             'first_name': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'required': "required"}),
@@ -51,3 +41,22 @@ class AddIdForm(forms.ModelForm):
         }
 
 
+
+class GenerateReferenceForm(forms.ModelForm):
+
+	expiry_date = forms.DateField(widget = forms.SelectDateWidget())
+
+	class Meta:
+		model = References
+		fields = ['generated_for', 'reason', 'expiry_date']
+
+		widgets = {
+            'expiry_date': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'tabindex': '1', 'required': "required"})
+        }
+
+
+class RequestPermissionsForm(forms.ModelForm):
+
+	class Meta:
+		model = RequestPermissions
+		fields = ['names', 'date_of_birth', 'race', 'gender', 'nationality']

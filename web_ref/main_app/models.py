@@ -105,3 +105,25 @@ class IdData(models.Model):
     id_number = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add = True)
+
+
+
+class References(models.Model):
+    data = models.ForeignKey(IdData, on_delete=models.CASCADE)
+    reference = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    generated_for = models.CharField(max_length=50)
+    reason = models.CharField(max_length=250)
+    requested = models.BooleanField(default=False)
+    requests = models.CharField(max_length=100)
+    expiry_date = models.DateTimeField(blank=True,null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class RequestPermissions(models.Model):
+    names = models.BooleanField(default=False)
+    date_of_birth = models.BooleanField(default=False)
+    race = models.BooleanField(default=False)
+    gender = models.BooleanField(default=False)
+    nationality = models.BooleanField(default=False)
+    reference = models.ForeignKey(References, on_delete=models.CASCADE)

@@ -26,6 +26,8 @@ urlpatterns = [
     path('register/', app_views.register, name='register'),
     path('dashboard/', app_views.dashboard, name='dashboard'),
     path('add-id-number/', app_views.add_id_number, name='add-id-number'),
+    path('reference/', app_views.reference, name='reference'),
+    path('history/', app_views.history, name='history'),
     path('login/', auth_views.LoginView.as_view(template_name='main_app/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='main_app/login.html'), name='logout')
 

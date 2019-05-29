@@ -107,6 +107,16 @@ class IdData(models.Model):
     timestamp = models.DateTimeField(auto_now_add = True)
 
 
+class BankingData(models.Model):
+
+    names = models.CharField(max_length = 100, blank = False, null = True)
+    card_number = models.CharField(max_length = 100, blank = False, null = True)
+    card_expiry_date = models.CharField(max_length = 100, blank = True, null = True)
+    cvv_number = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add = True)
+
+
 
 class References(models.Model):
     data = models.ForeignKey(IdData, on_delete=models.CASCADE)
@@ -126,4 +136,6 @@ class RequestPermissions(models.Model):
     race = models.BooleanField(default=False)
     gender = models.BooleanField(default=False)
     nationality = models.BooleanField(default=False)
+    check_credit_score = models.BooleanField(default=False)
+    check_criminal_record = models.BooleanField(default=False)
     reference = models.ForeignKey(References, on_delete=models.CASCADE)

@@ -5,7 +5,94 @@
 	<div class="module-head">
 		<h3>Check Reference</h3>
 	</div>
+	<div class="module-body">
+		{% for message in messages %}
+
+                <div class="alert alert-{{ message.tags }}">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				{{ message }} 
+				</div>
+
+            {% endfor %}
+		<form method="POST" action="/check-reference/" class="form-horizontal row-fluid">
+			{% csrf_token %}
+			<div class="control-group">
+				<label class="control-label" for="basicinput">Insert Reference</label>
+				<div class="controls">
+					<input type="text" id="basicinput" name="check_refence" placeholder="" class="span8">
+					<span class="help-inline"></span>
+				</div>
+			</div>
+
+			<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn">Check Reference</button>
+					</div>
+				</div>
+		</form>
+	</div>
 	
 </div>
+
+
+{% if reference %}
+ <div class="module">
+        <div class="module-head">
+            <h3>Reference Results</h3>
+        </div>
+         <div class="module-body">
+                <section class="docs">
+                   
+                    <h3>Reference {{ reference }}</h3>
+                    <p>This reference is entitled to view the following details</p>
+                    <div class="docs">
+                        <dl class="dl-horizontal">
+                        	{% if first_name %}
+                        		<dt>First Name:</dt>
+                            	<dd>{{ first_name }}</dd>
+                        	{% endif %}
+
+                        	{% if second_name %}
+                        		<dt>Second Name:</dt>
+                            	<dd>{{ second_name }}</dd>
+                        	{% endif %}
+
+                        	{% if surname %}
+                        		<dt>Surname:</dt>
+                            	<dd>{{ surname }}</dd>
+                        	{% endif %}
+
+                        	{% if date_of_birth %}
+                        		<dt>Date Of Birth:</dt>
+                            	<dd>{{ date_of_birth }}</dd>
+                        	{% endif %}
+
+                        	{% if gender %}
+                        		<dt>Gender:</dt>
+                            	<dd>{{ gender }}</dd>
+                        	{% endif %}
+
+                        	{% if nationality %}
+                        		<dt>Citizenship:</dt>
+                            	<dd>{{ nationality }}</dd>
+                        	{% endif %}
+
+                        	{% if check_credit_score %}
+                        		<dt>Check Credit Score:</dt>
+                            	<dd>{{ check_credit_score }}</dd>
+                        	{% endif %}
+
+                        	{% if check_criminal_record %}
+                        		<dt>Check Criminal Record:</dt>
+                            	<dd>{{ check_credit_score }}</dd>
+                        	{% endif %}
+
+                        </dl>
+                        
+                    </div>
+                </section>
+    </div>
+</div>
+{% endif %}
 
 {% endblock content %}

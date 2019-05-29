@@ -1,9 +1,12 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import IdData, References, RequestPermissions
+from .models import IdData, References, RequestPermissions, BankingData
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
+# # import webcam.admin
+# from bbio.libraries.WebCam import WebCam
+# from WebCam.fields import CameraField
 
 User = get_user_model()
 
@@ -25,10 +28,11 @@ class AddIdForm(forms.ModelForm):
 
 	id_number = forms.CharField(required=True, max_length=13, label="ID Number")
 	second_name = forms.CharField(required=False, help_text="Optional")
+	# photo = CameraField()
 
 	class Meta:
 		model = IdData
-		fields = ('first_name', 'second_name', 'surname', 'id_number')
+		fields = ('first_name', 'second_name', 'surname', 'bank_letter', 'certified_id_copy', 'id_number')
 
 		def clean_title(self):
 			return self.cleaned_data['first_name'].capitalize()
@@ -38,6 +42,23 @@ class AddIdForm(forms.ModelForm):
             'second_name': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput'}),
             'surname': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'required': "required"}),
             'id_number': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'required': "required"})
+        }
+
+
+class BankingDataForm(forms.ModelForm):
+
+	class Meta:
+		model = BankingData
+		fields = ('names', 'card_number', 'card_expiry_date', 'cvv_number')
+
+		def clean_title(self):
+			return self.cleaned_data['first_name'].capitalize()
+
+		widgets = {
+            'names': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'required': "required"}),
+            'card_number': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput'}),
+            'card_expiry_date': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'required': "required"}),
+            'cvv_number': forms.TextInput(attrs={'class': 'span8', 'id': 'basicinput', 'required': "required"})
         }
 
 

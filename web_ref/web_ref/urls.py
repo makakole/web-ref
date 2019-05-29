@@ -27,6 +27,7 @@ urlpatterns = [
     path('register/', app_views.register, name='register'),
     path('dashboard/', app_views.dashboard, name='dashboard'),
     path('add-id-number/', app_views.add_id_number, name='add-id-number'),
+    path('add-banking-info/', app_views.add_banking_info, name='add-banking-info'),
     path('reference/', app_views.reference, name='reference'),
     path('history/', app_views.history, name='history'),
     # url(r'^check-reference/$', app_views.check_reference, name='check-reference'),

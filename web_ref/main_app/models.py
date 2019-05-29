@@ -50,6 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length = 255, blank = True, null = True)
     active = models.BooleanField(default = True)
     staff = models.BooleanField(default = False)
+    certified = models.BooleanField(default = False)
     admin = models.BooleanField(default = False)
     timestamp = models.DateTimeField(auto_now_add = True)
 
@@ -103,6 +104,8 @@ class IdData(models.Model):
     second_name = models.CharField(max_length = 100, blank = False, null = True)
     surname = models.CharField(max_length = 100, blank = True, null = True)
     id_number = models.CharField(max_length=100)
+    bank_letter = models.FileField(upload_to="media")
+    certified_id_copy = models.FileField(upload_to="media")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add = True)
 

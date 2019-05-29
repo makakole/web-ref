@@ -59,4 +59,4 @@ class RequestPermissionsForm(forms.ModelForm):
 
 	class Meta:
 		model = RequestPermissions
-		fields = ['names', 'date_of_birth', 'race', 'gender', 'nationality']
+		fields = ['names', 'date_of_birth', 'gender', 'nationality', 'check_credit_score', 'check_criminal_record']

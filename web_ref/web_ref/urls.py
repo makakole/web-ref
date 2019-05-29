@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import include,path
+from django.urls import include, path
+from django.conf.urls import url
 from main_app import views as app_views
 from django.contrib.auth import views as auth_views
 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('add-id-number/', app_views.add_id_number, name='add-id-number'),
     path('reference/', app_views.reference, name='reference'),
     path('history/', app_views.history, name='history'),
+    # url(r'^check-reference/$', app_views.check_reference, name='check-reference'),
     path('check-reference/', app_views.check_reference, name='check-reference'),
     path('login/', auth_views.LoginView.as_view(template_name='main_app/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='main_app/login.html'), name='logout')
